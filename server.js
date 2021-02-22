@@ -90,7 +90,7 @@ app.patch('/products/:sku', async (request, response) => {
 });
 
 (async () => {
-  await Mongoose.connect('mongodb+srv://admin:admin@cluster0-cde82.mongodb.net/mongodb?retryWrites=true&w=majority', {
+  await Mongoose.connect('FILL ME IN', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
