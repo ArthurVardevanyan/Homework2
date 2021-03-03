@@ -14,8 +14,8 @@ const doActionThatMightFailValidation = async (request, response, action) => {
   } catch (e) {
     response.sendStatus(
       e.code === 11000
-      || e.stack.includes('ValidationError')
-      || (e.reason !== undefined && e.reason.code === 'ERR_ASSERTION')
+        || e.stack.includes('ValidationError')
+        || (e.reason !== undefined && e.reason.code === 'ERR_ASSERTION')
         ? 400 : 500,
     );
   }
@@ -90,7 +90,7 @@ app.patch('/products/:sku', async (request, response) => {
 });
 
 (async () => {
-  await Mongoose.connect('FILL ME IN', {
+  await Mongoose.connect(process.env.MONGO_DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
