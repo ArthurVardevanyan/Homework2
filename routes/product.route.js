@@ -3,7 +3,7 @@ const Express = require('express');
 const BodyParser = require('body-parser');
 const ProductController = require('../controllers/product.controller');
 
-const router = Express.Router(); // const app = Express();
+const router = Express.Router();
 
 router.use(BodyParser.json());
 
