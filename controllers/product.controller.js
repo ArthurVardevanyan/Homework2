@@ -25,7 +25,7 @@ exports.postProduct = async (request, response) => {
   });
 };
 
-exports.deleteProduct = async (request, response) => {
+exports.deleteProducts = async (request, response) => {
   await Error.doActionThatMightFailValidation(request, response, async () => {
     response.sendStatus((
       await ProductService.deleteProduct(request.query).deletedCount > 0 ? 200 : 404));
