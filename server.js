@@ -11,8 +11,10 @@ const BodyParser = require('body-parser');
 app.use(BodyParser.json());
 
 const ProductRoute = require('./routes/product.route');
+const UserRoute = require('./routes/user.route');
 
 app.use('/', ProductRoute);
+app.use('/', UserRoute);
 
 (async () => {
   await Mongoose.connect(process.env.MONGO_DB, {
