@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha tests/ --exit",
     "lint": "./node_modules/.bin/eslint '*/*.js' --fix"
   },
   "repository": {
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.3",
+    "chai-http": "^4.3.0",
     "eslint": "7.19.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.22.1",
