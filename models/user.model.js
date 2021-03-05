@@ -15,8 +15,8 @@ module.exports = Mongoose.model('User', new Mongoose.Schema({
     required: true,
     min: 0,
   },
-  address: { type: String, required: true },
-  phone: { type: String, required: true },
+  address: { type: String, required: false },
+  phone: { type: String, required: false },
 }, {
   toJSON: {
     getters: true,
