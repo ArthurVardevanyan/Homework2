@@ -4,9 +4,8 @@ const chaiHttp = require('chai-http');
 const { expect } = chai;
 chai.use(chaiHttp);
 const app = require('../server');
-// const Product = require('../models/product.model');
 
-const mockDB = require('./mockDB');
+const mockDB = require('./mockDB.test');
 
 before(async () => mockDB.connect());
 
