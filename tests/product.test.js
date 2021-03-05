@@ -50,3 +50,33 @@ describe('/products/0', () => {
     expect(res.status).to.equal(404);
   });
 });
+
+describe('PUT /products/0', () => {
+  it('should return status 201', async () => {
+    const res = await chai.request(app).post('/products').send({ sku: 0, name: 'someItem', price: 125 });
+    expect(res.status).to.equal(201);
+  });
+  it('should return status 201', async () => {
+    const res = await chai.request(app).put('/products/0').send({ sku: 0, name: 'myNewItem', price: 130 });
+    expect(res.status).to.equal(200);
+  });
+  it('should return JSON Object of the new PUT item', async () => {
+    const res = await chai.request(app).get('/products/0').send();
+    expect(res.body).to.deep.equal({
+      quantity: 0, sku: 0, name: 'myNewItem', price: 1.30,
+    });
+  });
+});
+
+describe('Patch /products/0', () => {
+  it('should return status 201', async () => {
+    const res = await chai.request(app).patch('/products/0').send({ quantity: 1 });
+    expect(res.status).to.equal(200);
+  });
+  it('should return JSON Object of the PATCHed item', async () => {
+    const res = await chai.request(app).get('/products/0').send();
+    expect(res.body).to.deep.equal({
+      quantity: 1, sku: 0, name: 'myNewItem', price: 1.30,
+    });
+  });
+});
