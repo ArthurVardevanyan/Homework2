@@ -59,7 +59,7 @@ exports.patchProductSku = async (request, response) => {
     if (patchResult != null && typeof patchResult === 'object') {
       response.json(patchResult);
     } else if (patchResult === -1) {
-      response.sendStatus(422);
+      response.sendStatus(422); // Added Malformed Input Check, UnProcessable Entity.
     } else {
       response.sendStatus(404);
     }

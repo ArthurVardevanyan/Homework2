@@ -8,6 +8,7 @@ exports.deleteUser = async (ssn) => (await User.deleteOne({ ssn })).deletedCount
 exports.putUser = async (ssn, user) => User.findOneAndReplace({ ssn }, user,
   { upsert: true });
 exports.patchUser = async (ssn, user) => {
+  // Check if all inputted keys are valid before attempted to update item.
   // https://stackoverflow.com/a/61350899
   const allowedMethods = ['ssn', 'firstName', 'lastName', 'age', 'address', 'phone']; // Maybe find a better way than hard coding this.
   const isValidOperation = Object.keys(user).every((param) => allowedMethods.includes(param));

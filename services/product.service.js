@@ -8,6 +8,7 @@ exports.deleteProductSku = async (sku) => (await Product.deleteOne({ sku })).del
 exports.putProductSku = async (sku, product) => Product.findOneAndReplace({ sku }, product,
   { upsert: true });
 exports.patchProductSku = async (sku, product) => {
+  // Check if all inputted keys are valid before attempted to update item.
   // https://stackoverflow.com/a/61350899
   const allowedMethods = ['sku', 'name', 'quantity', 'price']; // Maybe find a better way than hard coding this.
   const isValidOperation = Object.keys(product).every((param) => allowedMethods.includes(param));

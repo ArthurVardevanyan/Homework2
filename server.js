@@ -13,11 +13,11 @@ app.use(BodyParser.json());
 const ProductRoute = require('./routes/product.route');
 const UserRoute = require('./routes/user.route');
 
-app.use('/', ProductRoute);
-app.use('/', UserRoute);
+app.use('/', ProductRoute); // Product Endpoint
+app.use('/', UserRoute); // User Endpoint
 
 (async () => {
-  try {
+  try { // Try / Catch for Checking if Database Connection Works.
     await Mongoose.connect(process.env.MONGO_DB, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
