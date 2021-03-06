@@ -95,9 +95,9 @@ describe('Patch /users/000-00-0000', () => {
 });
 
 describe('DELETE All /users', () => {
-  it('should return status 404', async () => {
+  it('should return status 200', async () => {
     const res = await chai.request(app).delete('/users').send();
-    expect(res.status).to.equal(404);
+    expect(res.status).to.equal(200);
   });
 });
 

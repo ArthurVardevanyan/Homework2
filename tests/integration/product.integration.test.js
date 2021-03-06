@@ -89,9 +89,9 @@ describe('Patch /products/0', () => {
 });
 
 describe('DELETE All /products', () => {
-  it('should return status 404', async () => {
+  it('should return status 200', async () => {
     const res = await chai.request(app).delete('/products').send();
-    expect(res.status).to.equal(404);
+    expect(res.status).to.equal(200);
   });
 });
 

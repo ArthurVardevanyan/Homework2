@@ -28,14 +28,15 @@ exports.postUser = async (request, response) => {
 exports.deleteUsers = async (request, response) => {
   await Error.doActionThatMightFailValidation(request, response, async () => {
     response.sendStatus((
-      await UserService.deleteUsers(request.query).deletedCount > 0 ? 200 : 404));
+      await UserService.deleteUsers(request.query) > 0 ? 200 : 404));
   });
 };
 
 exports.deleteUser = async (request, response) => {
   await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.sendStatus((
-      await UserService.deleteUser(request.params.ssn)).deletedCount > 0 ? 200 : 404);
+    response.sendStatus(
+      (await UserService.deleteUser(request.params.ssn)) > 0 ? 200 : 404,
+    );
   });
 };
 

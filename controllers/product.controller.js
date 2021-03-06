@@ -28,14 +28,15 @@ exports.postProduct = async (request, response) => {
 exports.deleteProducts = async (request, response) => {
   await Error.doActionThatMightFailValidation(request, response, async () => {
     response.sendStatus((
-      await ProductService.deleteProducts(request.query).deletedCount > 0 ? 200 : 404));
+      await ProductService.deleteProducts(request.query) > 0 ? 200 : 404));
   });
 };
 
 exports.deleteProductSku = async (request, response) => {
   await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.sendStatus((
-      await ProductService.deleteProductSku(request.params.sku)).deletedCount > 0 ? 200 : 404);
+    response.sendStatus(
+      (await ProductService.deleteProductSku(request.params.sku)) > 0 ? 200 : 404,
+    );
   });
 };
 
