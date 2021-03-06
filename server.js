@@ -28,7 +28,7 @@ app.use('/', UserRoute);
     app.listen(8000);
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.log(new Error('Database Connection Error, Check Credentials'));
+    console.log(new Error('Database Connection Error, Check Credentials: '.concat(e.message)));
   }
 })();
 
