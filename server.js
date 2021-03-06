@@ -17,13 +17,19 @@ app.use('/', ProductRoute);
 app.use('/', UserRoute);
 
 (async () => {
-  await Mongoose.connect(process.env.MONGO_DB, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-    useCreateIndex: true,
-  });
-  app.listen(8000);
+  try {
+    await Mongoose.connect(process.env.MONGO_DB, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+
+    });
+    app.listen(8000);
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log(new Error('Database Connection Error, Check Credentials'));
+  }
 })();
 
 module.exports = app;
