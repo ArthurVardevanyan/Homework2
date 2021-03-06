@@ -135,3 +135,38 @@ describe('/users?age=2 Return all users with age of 2', () => {
       }]);
   });
 });
+
+describe('Duplicate User Post', () => {
+  it('Duplicate User Post', async () => {
+    let res = await chai.request(app).post('/users').send({
+      ssn: '000-00-0011', firstName: 'newFirstName', lastName: 'newLastName', age: 2,
+    });
+    expect(res.status).to.equal(201);
+    res = await chai.request(app).post('/users').send({
+      ssn: '000-00-0011', firstName: 'newFirstName', lastName: 'newLastName', age: 2,
+    });
+    expect(res.status).to.equal(400);
+  });
+});
+
+describe('Invalid Endpoint', () => {
+  it('Invalid Endpoint', async () => {
+    const res = await chai.request(app).post('/user').send({
+      ssn: '000-00-0011', firstName: 'newFirstName', lastName: 'newLastName', age: 2,
+    });
+    expect(res.status).to.equal(404);
+  });
+});
+
+describe('Invalid PUT /users/0', () => {
+  it('should return status 200', async () => {
+    const res = await chai.request(app).put('/users/000-00-0011').send({
+      ssn: '000-00-0011', firstName: 'newFirstName', lastName: 'newLastName', age: 2,
+    });
+    expect(res.status).to.equal(200);
+  });
+  it('should return status 400', async () => {
+    const res = await chai.request(app).put('/users/000-00-0011').send({ lastName: 'newLastName', age: 2 });
+    expect(res.status).to.equal(400);
+  });
+});

@@ -119,3 +119,30 @@ describe('/products?price=1.30 Return all Products with Price of 130', () => {
       }]);
   });
 });
+
+describe('Duplicate Item Post', () => {
+  it('Duplicate Item Post', async () => {
+    let res = await chai.request(app).post('/products').send({ sku: 10, name: 'someItem', price: 125 });
+    expect(res.status).to.equal(201);
+    res = await chai.request(app).post('/products').send({ sku: 10, name: 'someItem', price: 125 });
+    expect(res.status).to.equal(400);
+  });
+});
+
+describe('Invalid Endpoint', () => {
+  it('Invalid Endpoint', async () => {
+    const res = await chai.request(app).post('/product').send({ sku: 10, name: 'someItem', price: 125 });
+    expect(res.status).to.equal(404);
+  });
+});
+
+describe('Invalid PUT /products/0', () => {
+  it('should return status 200', async () => {
+    const res = await chai.request(app).put('/products/0').send({ sku: 0, name: 'someItem', price: 125 });
+    expect(res.status).to.equal(200);
+  });
+  it('should return status 400', async () => {
+    const res = await chai.request(app).put('/products/0').send({ price: 125 });
+    expect(res.status).to.equal(400);
+  });
+});
