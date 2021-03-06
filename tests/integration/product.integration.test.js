@@ -23,6 +23,13 @@ describe('DELETE /products', () => {
   });
 });
 
+describe('GET /products/0', () => {
+  it('should return status 404', async () => {
+    const res = await chai.request(app).get('/products/0').send();
+    expect(res.status).to.equal(404);
+  });
+});
+
 describe('POST /products', () => {
   it('should return status 201', async () => {
     const res = await chai.request(app).post('/products').send({ sku: 0, name: 'someItem', price: 125 });

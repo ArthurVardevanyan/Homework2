@@ -23,6 +23,13 @@ describe('DELETE /users', () => {
   });
 });
 
+describe('GET /users/0', () => {
+  it('should return status 404', async () => {
+    const res = await chai.request(app).get('/users/0').send();
+    expect(res.status).to.equal(404);
+  });
+});
+
 describe('POST /users', () => {
   it('should return status 201', async () => {
     const res = await chai.request(app).post('/users').send({
