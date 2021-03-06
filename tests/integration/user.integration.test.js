@@ -181,7 +181,7 @@ describe('Invalid Patch\'s /users/000-00-0011', () => {
     expect(res.status).to.equal(422);
   });
   it('should return status 404', async () => {
-    const res = await chai.request(app).patch('/users/000-00-0011').send({ InvalidKey: 125 });
-    expect(res.status).to.equal(422);
+    const res = await chai.request(app).patch('/users/000-00-0012').send({ InvalidKey: 125 });
+    expect(res.status).to.equal(404);
   });
 });
