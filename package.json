@@ -1,6 +1,6 @@
 {
-  "name": "homework2",
-  "version": "1.0.0",
+  "name": "nodejs_homework_2",
+  "version": "2.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ArthurVardevanyan/Homework2.git"
+    "url": "git+https://github.com/ArthurVardevanyan/NodeJS_Homework_2.git"
   },
   "keywords": [],
   "author": "",
