@@ -55,8 +55,10 @@ exports.patchUser = async (request, response) => {
   delete user.ssn;
   await Error.doActionThatMightFailValidation(request, response, async () => {
     const patchResult = await UserService.patchUser(ssn, user);
-    if (patchResult != null) {
+    if (patchResult != null && typeof patchResult === 'object') {
       response.json(patchResult);
+    } else if (patchResult === -1) {
+      response.sendStatus(422);
     } else {
       response.sendStatus(404);
     }

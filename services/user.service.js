@@ -7,9 +7,20 @@ exports.deleteUsers = async (query) => User.deleteMany(query);
 exports.deleteUser = async (ssn) => User.deleteOne({ ssn });
 exports.putUser = async (ssn, user) => User.findOneAndReplace({ ssn }, user,
   { upsert: true });
-exports.patchUser = async (ssn, user) => User.findOneAndUpdate(
-  { ssn }, user,
-  {
-    new: true,
-  },
-).select('-_id -__v');
+exports.patchUser = async (ssn, user) => {
+  // https://stackoverflow.com/a/61350899
+  const allowedMethods = ['ssn', 'firstName', 'lastName', 'age', 'address', 'phone']; // Maybe find a better way than hard coding this.
+  const isValidOperation = Object.keys(user).every((param) => allowedMethods.includes(param));
+
+  if (await this.getUser(ssn) == null) {
+    return null;
+  } if (!isValidOperation) {
+    return -1;
+  }
+  return User.findOneAndUpdate(
+    { ssn }, user,
+    {
+      new: true,
+    },
+  ).select('-_id -__v');
+};

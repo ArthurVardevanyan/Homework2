@@ -55,8 +55,10 @@ exports.patchProductSku = async (request, response) => {
   delete product.sku;
   await Error.doActionThatMightFailValidation(request, response, async () => {
     const patchResult = await ProductService.patchProductSku(sku, product);
-    if (patchResult != null) {
+    if (patchResult != null && typeof patchResult === 'object') {
       response.json(patchResult);
+    } else if (patchResult === -1) {
+      response.sendStatus(422);
     } else {
       response.sendStatus(404);
     }

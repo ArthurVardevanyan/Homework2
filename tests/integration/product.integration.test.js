@@ -146,3 +146,18 @@ describe('Invalid PUT /products/0', () => {
     expect(res.status).to.equal(400);
   });
 });
+
+describe('Invalid Patch\'s /products/0', () => {
+  it('should return status 200', async () => {
+    const res = await chai.request(app).patch('/products/0').send({ price: 125 });
+    expect(res.status).to.equal(200);
+  });
+  it('should return status 422', async () => {
+    const res = await chai.request(app).patch('/products/0').send({ InvalidKey: 125 });
+    expect(res.status).to.equal(422);
+  });
+  it('should return status 404', async () => {
+    const res = await chai.request(app).patch('/products/1').send({ InvalidKey: 125 });
+    expect(res.status).to.equal(422);
+  });
+});
