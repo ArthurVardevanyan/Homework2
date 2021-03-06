@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 
 const { expect } = chai;
 chai.use(chaiHttp);
-const app = require('../server');
+const app = require('../../server');
 
 const mockDB = require('./mockDB.test');
 
