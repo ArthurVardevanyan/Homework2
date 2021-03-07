@@ -1,9 +1,9 @@
 const User = require('../models/user.model');
 
-exports.getUsers = async (query) => User.find(query).select('-_id -__v');
+exports.getAll = async (query) => User.find(query).select('-_id -__v');
 exports.getUser = async (ssn) => User.findOne({ ssn }).select('-_id -__v');
-exports.postUser = async (body) => new User(body).save();
-exports.deleteUsers = async (query) => (await User.deleteMany(query)).deletedCount;
+exports.post = async (body) => new User(body).save();
+exports.deleteAll = async (query) => (await User.deleteMany(query)).deletedCount;
 exports.deleteUser = async (ssn) => (await User.deleteOne({ ssn })).deletedCount;
 exports.putUser = async (ssn, user) => User.findOneAndReplace({ ssn }, user,
   { upsert: true });

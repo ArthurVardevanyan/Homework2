@@ -1,10 +1,15 @@
 const ProductService = require('../services/product.service');
+const Controller = require('./controller');
 const Error = require('./error');
 
 exports.getProducts = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.json(await ProductService.getProducts(request.query));
-  });
+  Controller.getAll(request, response, ProductService);
+};
+exports.postProduct = async (request, response) => {
+  Controller.post(request, response, ProductService);
+};
+exports.deleteProducts = async (request, response) => {
+  Controller.deleteAll(request, response, ProductService);
 };
 
 exports.getProductsSku = async (request, response) => {
@@ -15,20 +20,6 @@ exports.getProductsSku = async (request, response) => {
     } else {
       response.sendStatus(404);
     }
-  });
-};
-
-exports.postProduct = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    await ProductService.postProduct(request.body);
-    response.sendStatus(201);
-  });
-};
-
-exports.deleteProducts = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.sendStatus((
-      await ProductService.deleteProducts(request.query) > 0 ? 200 : 404));
   });
 };
 

@@ -1,10 +1,15 @@
 const UserService = require('../services/user.service');
+const Controller = require('./controller');
 const Error = require('./error');
 
 exports.getUsers = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.json(await UserService.getUsers(request.query));
-  });
+  Controller.getAll(request, response, UserService);
+};
+exports.postUser = async (request, response) => {
+  Controller.post(request, response, UserService);
+};
+exports.deleteUsers = async (request, response) => {
+  Controller.deleteAll(request, response, UserService);
 };
 
 exports.getUser = async (request, response) => {
@@ -15,20 +20,6 @@ exports.getUser = async (request, response) => {
     } else {
       response.sendStatus(404);
     }
-  });
-};
-
-exports.postUser = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    await UserService.postUser(request.body);
-    response.sendStatus(201);
-  });
-};
-
-exports.deleteUsers = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.sendStatus((
-      await UserService.deleteUsers(request.query) > 0 ? 200 : 404));
   });
 };
 
