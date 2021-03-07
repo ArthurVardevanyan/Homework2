@@ -1,14 +1,18 @@
 const ProductService = require('../services/product.service');
-const Error = require('./error');
+const Controller = require('./controller');
 
 exports.getProducts = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.json(await ProductService.getProducts(request.query));
-  });
+  Controller.getAll(request, response, ProductService);
+};
+exports.postProduct = async (request, response) => {
+  Controller.post(request, response, ProductService);
+};
+exports.deleteProducts = async (request, response) => {
+  Controller.deleteAll(request, response, ProductService);
 };
 
 exports.getProductsSku = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
+  await Controller.doActionThatMightFailValidation(request, response, async () => {
     const getResult = await ProductService.getProductsSku(request.params.sku);
     if (getResult != null) {
       response.json(getResult);
@@ -18,25 +22,11 @@ exports.getProductsSku = async (request, response) => {
   });
 };
 
-exports.postProduct = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    await ProductService.postProduct(request.body);
-    response.sendStatus(201);
-  });
-};
-
-exports.deleteProducts = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.sendStatus((
-      await ProductService.deleteProducts(request.query) > 0 ? 200 : 404));
-  });
-};
-
 exports.deleteProductSku = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.sendStatus(
-      (await ProductService.deleteProductSku(request.params.sku)) > 0 ? 200 : 404,
-    );
+  await Controller.doActionThatMightFailValidation(request, response, async () => {
+    response.sendStatus(Controller.deleteCountResponse(
+      await ProductService.deleteProductSku(request.params.sku),
+    ));
   });
 };
 
@@ -44,7 +34,7 @@ exports.putProductSku = async (request, response) => {
   const { sku } = request.params;
   const product = request.body;
   product.sku = sku;
-  await Error.doActionThatMightFailValidation(request, response, async () => {
+  await Controller.doActionThatMightFailValidation(request, response, async () => {
     await ProductService.putProductSku(sku, product);
     response.sendStatus(200);
   });
@@ -54,7 +44,7 @@ exports.patchProductSku = async (request, response) => {
   const { sku } = request.params;
   const product = request.body;
   delete product.sku;
-  await Error.doActionThatMightFailValidation(request, response, async () => {
+  await Controller.doActionThatMightFailValidation(request, response, async () => {
     const patchResult = await ProductService.patchProductSku(sku, product);
     if (patchResult != null && typeof patchResult === 'object') {
       response.json(patchResult);

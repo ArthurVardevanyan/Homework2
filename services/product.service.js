@@ -1,9 +1,11 @@
 const Product = require('../models/product.model');
+const Service = require('./service');
 
-exports.getProducts = async (query) => Product.find(query).select('-_id -__v');
+exports.getAll = async (query) => Service.getAll(query, Product);
+exports.post = async (body) => Service.post(body, Product);
+exports.deleteAll = async (query) => Service.deleteAll(query, Product);
+
 exports.getProductsSku = async (sku) => Product.findOne({ sku }).select('-_id -__v');
-exports.postProduct = async (body) => new Product(body).save();
-exports.deleteProducts = async (query) => (await Product.deleteMany(query)).deletedCount;
 exports.deleteProductSku = async (sku) => (await Product.deleteOne({ sku })).deletedCount;
 exports.putProductSku = async (sku, product) => Product.findOneAndReplace({ sku }, product,
   { upsert: true });
