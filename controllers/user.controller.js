@@ -25,9 +25,9 @@ exports.getUser = async (request, response) => {
 
 exports.deleteUser = async (request, response) => {
   await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.sendStatus(
-      (await UserService.deleteUser(request.params.ssn)) > 0 ? 200 : 404,
-    );
+    response.sendStatus(Controller.deleteCountResponse(
+      await UserService.deleteUser(request.params.ssn),
+    ));
   });
 };
 

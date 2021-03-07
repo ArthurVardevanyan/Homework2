@@ -25,9 +25,9 @@ exports.getProductsSku = async (request, response) => {
 
 exports.deleteProductSku = async (request, response) => {
   await Error.doActionThatMightFailValidation(request, response, async () => {
-    response.sendStatus(
-      (await ProductService.deleteProductSku(request.params.sku)) > 0 ? 200 : 404,
-    );
+    response.sendStatus(Controller.deleteCountResponse(
+      await ProductService.deleteProductSku(request.params.sku),
+    ));
   });
 };
 
