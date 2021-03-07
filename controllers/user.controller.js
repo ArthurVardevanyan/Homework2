@@ -1,6 +1,5 @@
 const UserService = require('../services/user.service');
 const Controller = require('./controller');
-const Error = require('./error');
 
 exports.getUsers = async (request, response) => {
   Controller.getAll(request, response, UserService);
@@ -13,7 +12,7 @@ exports.deleteUsers = async (request, response) => {
 };
 
 exports.getUser = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
+  await Controller.doActionThatMightFailValidation(request, response, async () => {
     const getResult = await UserService.getUser(request.params.ssn);
     if (getResult != null) {
       response.json(getResult);
@@ -24,7 +23,7 @@ exports.getUser = async (request, response) => {
 };
 
 exports.deleteUser = async (request, response) => {
-  await Error.doActionThatMightFailValidation(request, response, async () => {
+  await Controller.doActionThatMightFailValidation(request, response, async () => {
     response.sendStatus(Controller.deleteCountResponse(
       await UserService.deleteUser(request.params.ssn),
     ));
@@ -35,7 +34,7 @@ exports.putUser = async (request, response) => {
   const { ssn } = request.params;
   const user = request.body;
   user.ssn = ssn;
-  await Error.doActionThatMightFailValidation(request, response, async () => {
+  await Controller.doActionThatMightFailValidation(request, response, async () => {
     await UserService.putUser(ssn, user);
     response.sendStatus(200);
   });
@@ -45,7 +44,7 @@ exports.patchUser = async (request, response) => {
   const { ssn } = request.params;
   const user = request.body;
   delete user.ssn;
-  await Error.doActionThatMightFailValidation(request, response, async () => {
+  await Controller.doActionThatMightFailValidation(request, response, async () => {
     const patchResult = await UserService.patchUser(ssn, user);
     if (patchResult != null && typeof patchResult === 'object') {
       response.json(patchResult);
