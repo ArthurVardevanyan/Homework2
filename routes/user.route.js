@@ -1,18 +1,14 @@
-const Express = require('express');
+const express = require('express');
 
-const BodyParser = require('body-parser');
+const router = express.Router();
 const UserController = require('../controllers/user.controller');
 
-const router = Express.Router();
-
-router.use(BodyParser.json());
-
-router.get('/users', UserController.getUsers);
-router.get('/users/:ssn', UserController.getUser);
-router.post('/users', UserController.postUser);
-router.delete('/users', UserController.deleteUsers);
-router.delete('/users/:ssn', UserController.deleteUser);
-router.put('/users/:ssn', UserController.putUser);
-router.patch('/users/:ssn', UserController.patchUser);
+router.get('/', UserController.getUsers);
+router.get('/:ssn', UserController.getUser);
+router.post('/', UserController.postUser);
+router.delete('', UserController.deleteUsers);
+router.delete('/:ssn', UserController.deleteUser);
+router.put('/:ssn', UserController.putUser);
+router.patch('/:ssn', UserController.patchUser);
 
 module.exports = router;
